@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Zong Bundles — Lahore Internet Plans</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --lime:#7DC72A;
+  --lime-bg:#F2FBEA;
+  --lime-border:#C6EFA0;
+  --fuchsia:#E0147A;
+  --fuchsia-bg:#FEF0F7;
+  --mustard:#D48C0A;
+  --mustard-bg:#FEF8E7;
+  --purple:#6B3FA0;
+  --purple-bg:#F3EFFE;
+  --ink:#1A1A2E;
+  --muted:#6B7280;
+  --border:#E8EBF0;
+  --surface:#F8F9FC;
+  --white:#FFFFFF;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+.brand { display: flex; align-items: center; gap: 0.5rem; }
+.brand-dot { width:10px;height:10px;border-radius:50%;background:var(--fuchsia); }
+.brand-name { font-weight:800;font-size:1.1rem;color:var(--ink);letter-spacing:-.02em; }
+.brand-name span { color: var(--lime); }
+.lang-btn {
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--ink);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.lang-btn:hover { border-color: var(--lime); }
+
+/* Hero */
+.hero {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem 2.5rem 2rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;
+  border-radius:50%;background:radial-gradient(circle,rgba(174,234,0,.18) 0%,transparent 70%);pointer-events:none;
+}
+.hero::after {
+  content:'';position:absolute;bottom:-40px;left:30%;width:180px;height:180px;
+  border-radius:50%;background:radial-gradient(circle,rgba(224,20,122,.09) 0%,transparent 70%);pointer-events:none;
+}
+.hero-left { flex:1;position:relative;z-index:1; }
+.hero-tag {
+  display:inline-flex;align-items:center;gap:6px;background:var(--lime-bg);
+  border:1px solid var(--lime-border);color:var(--lime);font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:9999px;margin-bottom:1rem;
+}
+.hero-tag::before { content:'';width:5px;height:5px;border-radius:50%;background:var(--lime); }
+.hero h1 { font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;letter-spacing:-.03em;margin-bottom:.6rem; }
+.hero h1 .pink { color:var(--fuchsia); }
+.hero h1 .green { color:var(--lime); }
+.hero-sub { color:var(--muted);font-size:.95rem;line-height:1.6;max-width:420px; }
+.hero-stats { display:flex;flex-direction:column;gap:.75rem;position:relative;z-index:1;flex-shrink:0; }
+.stat-pill { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.7rem 1.1rem;text-align:right; }
+.stat-num { font-weight:800;font-size:1.5rem;letter-spacing:-.03em;color:var(--ink); }
+.stat-num.pink { color:var(--fuchsia); }
+.stat-num.green { color:var(--lime); }
+.stat-label { font-size:.72rem;color:var(--muted);font-weight:500;margin-top:1px; }
+
+/* ══════════════════════════════════════════
+   SPIN WHEEL BANNER
+══════════════════════════════════════════ */
+.spin-banner {
+  background: linear-gradient(135deg, #1A1A2E 0%, #2D1B4E 50%, #1A1A2E 100%);
+  border-radius: 24px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+  text-decoration: none;
+}
+.spin-banner:hover { transform: translateY(-2px); }
+.spin-banner::before {
+  content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;
+  border-radius:50%;background:radial-gradient(circle,rgba(125,199,42,.25) 0%,transparent 65%);pointer-events:none;
+}
+.spin-banner::after {
+  content:'';position:absolute;bottom:-60px;left:20%;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,rgba(224,20,122,.2) 0%,transparent 65%);pointer-events:none;
+}
+.spin-wheel-preview {
+  width:90px;height:90px;border-radius:50%;flex-shrink:0;
+  position:relative;z-index:1;animation:spin-idle 8s linear infinite;
+}
+@keyframes spin-idle { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.spin-banner-text { flex:1;position:relative;z-index:1; }
+.spin-banner-text h2 { font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-.02em;margin-bottom:.3rem; }
+.spin-banner-text h2 span { color:var(--lime); }
+.spin-banner-text p { color:rgba(255,255,255,.65);font-size:.88rem; }
+.spin-cta-btn {
+  flex-shrink:0;background:var(--lime);color:#fff;font-family:inherit;font-weight:800;
+  font-size:.92rem;padding:.8rem 1.8rem;border:none;border-radius:14px;cursor:pointer;
+  position:relative;z-index:1;transition:transform .15s,box-shadow .15s;
+  box-shadow:0 4px 20px rgba(125,199,42,.4);
+}
+.spin-cta-btn:hover { transform:scale(1.05);box-shadow:0 6px 28px rgba(125,199,42,.55); }
+.spin-free-badge {
+  position:absolute;top:14px;right:14px;background:var(--fuchsia);color:#fff;
+  font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.2rem .6rem;border-radius:9999px;z-index:2;
+}
+
+/* ══════════════════════════════════════════
+   QUIZ STRIP
+══════════════════════════════════════════ */
+.quiz-strip {
+  background:var(--white);border:1.5px solid var(--lime-border);border-radius:20px;
+  padding:1.3rem 1.75rem;margin-bottom:1.75rem;display:flex;align-items:center;
+  justify-content:space-between;gap:1rem;flex-wrap:wrap;cursor:pointer;transition:box-shadow .2s;
+}
+.quiz-strip:hover { box-shadow:0 4px 20px rgba(125,199,42,.15); }
+.quiz-strip-left { display:flex;align-items:center;gap:.85rem; }
+.quiz-strip-emoji { font-size:1.6rem; }
+.quiz-strip-title { font-weight:700;font-size:.95rem;color:var(--ink); }
+.quiz-strip-sub { font-size:.76rem;color:var(--muted);margin-top:2px; }
+.quiz-strip-btn {
+  background:var(--lime-bg);color:var(--lime);border:1.5px solid var(--lime-border);
+  font-family:inherit;font-weight:700;font-size:.82rem;padding:.55rem 1.3rem;
+  border-radius:12px;cursor:pointer;transition:background .15s;white-space:nowrap;
+}
+.quiz-strip-btn:hover { background:var(--lime);color:#fff; }
+
+/* Filter tabs */
+.tabs { display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap; }
+.tab {
+  border:1.5px solid var(--border);background:var(--white);color:var(--muted);
+  padding:.45rem 1.1rem;border-radius:9999px;font-family:inherit;font-size:.82rem;
+  font-weight:600;cursor:pointer;transition:all .18s;
+}
+.tab.active,.tab:hover { border-color:var(--lime);color:var(--lime);background:var(--lime-bg); }
+
+/* Grid */
+.grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem; }
+
+/* Card */
+.card {
+  background:var(--white);border:1px solid var(--border);border-radius:20px;padding:1.5rem;
+  display:flex;flex-direction:column;gap:1.1rem;
+  transition:box-shadow .22s,transform .22s,border-color .22s;
+  position:relative;overflow:hidden;cursor:pointer;
+}
+.card:hover { box-shadow:0 8px 32px rgba(0,0,0,.09);transform:translateY(-3px);border-color:rgba(125,199,42,.5); }
+.card-stripe { height:4px;position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0; }
+.card-top { display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;margin-top:.5rem; }
+.card-name { font-weight:700;font-size:1rem;color:var(--ink);line-height:1.3; }
+.card-sub { font-size:.75rem;color:var(--muted);margin-top:3px;line-height:1.4; }
+.price-badge { flex-shrink:0;background:var(--ink);color:var(--white);border-radius:12px;padding:.45rem .85rem;text-align:center; }
+.price-amt { font-weight:800;font-size:1.1rem;letter-spacing:-.02em;display:block; }
+.price-label { font-size:.65rem;color:rgba(255,255,255,.55);margin-top:1px; }
+.features { list-style:none;display:flex;flex-direction:column;gap:.5rem; }
+.feat { display:flex;align-items:flex-start;gap:.65rem; }
+.feat-icon { width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px; }
+.feat-body { flex:1; }
+.feat-key { font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px; }
+.feat-val { font-size:.84rem;font-weight:500;color:var(--ink);line-height:1.35; }
+.dial-chip {
+  display:inline-block;background:var(--surface);border:1px solid var(--border);
+  color:var(--purple);font-family:monospace;font-weight:700;font-size:.82rem;
+  padding:1px 8px;border-radius:6px;
+}
+.cta {
+  display:block;text-align:center;text-decoration:none;padding:.78rem;border-radius:12px;
+  font-weight:700;font-size:.88rem;letter-spacing:.01em;transition:opacity .18s,transform .18s;margin-top:auto;
+}
+.cta:hover { opacity:.88;transform:scale(1.02); }
+.cta-green { background:var(--lime);color:var(--white); }
+.cta-pink  { background:var(--fuchsia);color:var(--white); }
+.popular-chip {
+  position:absolute;top:14px;right:14px;background:var(--fuchsia);color:var(--white);
+  font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.2rem .6rem;border-radius:9999px;
+}
+
+/* ══════════════════════════════════════════
+   MORE BUNDLES ON MZA BANNER
+══════════════════════════════════════════ */
+.more-bundles-banner {
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, #7DC72A 0%, #5FAD1A 60%, #4A9614 100%);
+  border-radius: 24px;
+  padding: 1.75rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(125,199,42,0.35);
+}
+.more-bundles-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(125,199,42,0.5);
+}
+.more-bundles-banner::before {
+  content:'';position:absolute;top:-70px;right:-70px;width:280px;height:280px;
+  border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18) 0%,transparent 65%);pointer-events:none;
+}
+.more-bundles-banner::after {
+  content:'';position:absolute;bottom:-50px;left:25%;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,rgba(0,0,0,.08) 0%,transparent 65%);pointer-events:none;
+}
+.more-bundles-icon {
+  flex-shrink: 0;
+  width: 64px; height: 64px;
+  background: rgba(255,255,255,0.2);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  position: relative; z-index: 1;
+}
+.more-bundles-text { flex: 1; position: relative; z-index: 1; }
+.more-bundles-eyebrow {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.2rem 0.7rem; border-radius: 9999px; margin-bottom: 0.45rem;
+}
+.more-bundles-title {
+  font-size: 1.2rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 0.2rem;
+}
+.more-bundles-sub { color: rgba(255,255,255,0.78); font-size: 0.83rem; line-height: 1.45; }
+.more-bundles-cta-btn {
+  flex-shrink: 0;
+  background: #fff;
+  color: var(--lime);
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 0.75rem 1.6rem;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  position: relative; z-index: 1;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  white-space: nowrap;
+}
+.more-bundles-cta-btn:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(0,0,0,0.18); }
+
+/* ══════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════ */
+.modal-overlay {
+  position:fixed;inset:0;background:rgba(10,10,30,.7);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-overlay.open { opacity:1;pointer-events:all; }
+.modal {
+  background:var(--white);border-radius:28px;padding:2.5rem 2rem;
+  max-width:460px;width:100%;position:relative;
+  transform:scale(.9);transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  max-height:90vh;overflow-y:auto;
+}
+.modal-overlay.open .modal { transform:scale(1); }
+.modal-close {
+  position:absolute;top:1rem;right:1rem;background:var(--surface);border:1px solid var(--border);
+  width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-family:inherit;
+  color:var(--muted);transition:background .15s;
+}
+.modal-close:hover { background:var(--border); }
+
+/* ══════════════════════════════════════════
+   QUIZ MODAL
+══════════════════════════════════════════ */
+#quizModal .modal { max-width:460px; }
+.quiz-modal-title { font-weight:800;font-size:1.4rem;letter-spacing:-.02em;margin-bottom:.3rem; }
+.quiz-modal-sub { color:var(--muted);font-size:.88rem;margin-bottom:1.5rem; }
+.quiz-progress-bar { height:4px;background:var(--border);border-radius:9999px;margin-bottom:1.5rem;overflow:hidden; }
+.quiz-progress-fill { height:100%;background:var(--lime);border-radius:9999px;transition:width .3s; }
+.quiz-step-label { font-size:.72rem;color:var(--muted);font-weight:600;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.08em; }
+.quiz-q { font-weight:700;font-size:1rem;margin-bottom:1rem;color:var(--ink); }
+.quiz-options { display:flex;flex-direction:column;gap:.6rem; }
+.quiz-opt {
+  border:1.5px solid var(--border);background:var(--white);border-radius:14px;
+  padding:.75rem 1rem;text-align:left;font-family:inherit;font-size:.88rem;
+  font-weight:600;color:var(--ink);cursor:pointer;
+  display:flex;align-items:center;gap:.75rem;transition:all .15s;
+}
+.quiz-opt:hover { border-color:var(--lime);background:var(--lime-bg);color:var(--lime); }
+.quiz-opt-icon { font-size:1.1rem; }
+.quiz-result { display:none;text-align:center; }
+.quiz-result.show { display:block;animation:pop-in .4s cubic-bezier(.34,1.56,.64,1); }
+@keyframes pop-in { from{transform:scale(.7);opacity:0} to{transform:scale(1);opacity:1} }
+.quiz-result-title { font-weight:800;font-size:1.3rem;margin-bottom:.4rem; }
+.quiz-result-sub { color:var(--muted);font-size:.88rem;margin-bottom:1.2rem; }
+.quiz-rec-card {
+  background:var(--lime-bg);border:1.5px solid var(--lime-border);
+  border-radius:16px;padding:1.2rem;text-align:left;margin-bottom:1rem;
+}
+.quiz-rec-name { font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:.2rem; }
+.quiz-rec-price { font-weight:700;color:var(--lime);font-size:1.1rem; }
+.quiz-rec-details { font-size:.8rem;color:var(--muted);margin-top:.4rem;line-height:1.5; }
+.quiz-subscribe-btn {
+  display:block;width:100%;background:var(--lime);color:#fff;font-family:inherit;
+  font-weight:800;font-size:.95rem;padding:.85rem;border:none;border-radius:14px;
+  cursor:pointer;text-align:center;transition:opacity .15s;
+}
+.quiz-subscribe-btn:hover { opacity:.88; }
+
+/* ══════════════════════════════════════════
+   MZA APP BANNER
+══════════════════════════════════════════ */
+.mza-banner {
+  margin-top: 2rem;
+  background: linear-gradient(135deg, #0D0D1A 0%, #1A1A2E 40%, #0D1A0D 100%);
+  border-radius: 24px;
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.mza-banner::before {
+  content:'';position:absolute;top:-60px;left:-60px;width:280px;height:280px;
+  border-radius:50%;background:radial-gradient(circle,rgba(125,199,42,.2) 0%,transparent 65%);pointer-events:none;
+}
+.mza-banner::after {
+  content:'';position:absolute;bottom:-50px;right:15%;width:220px;height:220px;
+  border-radius:50%;background:radial-gradient(circle,rgba(224,20,122,.15) 0%,transparent 65%);pointer-events:none;
+}
+.mza-icon-wrap {
+  flex-shrink: 0;
+  width: 72px; height: 72px;
+  background: linear-gradient(135deg, #7DC72A, #5FAD1A);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  position: relative; z-index: 1;
+  box-shadow: 0 4px 20px rgba(125,199,42,0.4);
+}
+.mza-text { flex: 1; position: relative; z-index: 1; }
+.mza-label {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(125,199,42,0.15);
+  border: 1px solid rgba(125,199,42,0.3);
+  color: var(--lime);
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.2rem 0.7rem; border-radius: 9999px; margin-bottom: 0.5rem;
+}
+.mza-label::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--lime); }
+.mza-title { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+.mza-title span { color: var(--lime); }
+.mza-sub { color: rgba(255,255,255,0.6); font-size: 0.84rem; line-height: 1.5; }
+.mza-rewards { display: flex; gap: 0.6rem; margin-top: 0.8rem; flex-wrap: wrap; }
+.mza-reward-chip {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8);
+  font-size: 0.72rem; font-weight: 600;
+  padding: 0.25rem 0.65rem; border-radius: 9999px;
+  display: flex; align-items: center; gap: 4px;
+}
+.mza-btns { display: flex; flex-direction: column; gap: 0.6rem; flex-shrink: 0; position: relative; z-index: 1; }
+.mza-store-btn {
+  display: flex; align-items: center; gap: 0.55rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.6rem 1.1rem;
+  border-radius: 12px;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.mza-store-btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35); }
+.mza-store-icon { font-size: 1.2rem; }
+.mza-store-text { display: flex; flex-direction: column; }
+.mza-store-small { font-size: 0.6rem; opacity: 0.65; line-height: 1; }
+.mza-store-name { font-size: 0.82rem; font-weight: 700; line-height: 1.2; }
+
+/* Urdu RTL */
+body.urdu-mode { direction: rtl; }
+body.urdu-mode .stat-pill { text-align: left; }
+body.urdu-mode .card-top { flex-direction: row-reverse; }
+body.urdu-mode .feat { flex-direction: row-reverse; }
+body.urdu-mode .feat-body { text-align: right; }
+body.urdu-mode .dial-chip { direction: ltr; display: inline-block; }
+body.urdu-mode .quiz-opt { text-align: right; flex-direction: row-reverse; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero { flex-direction: column; padding: 1.5rem; }
+  .hero-stats { flex-direction: row; }
+  .stat-pill { flex: 1; text-align: center; }
+  .grid { grid-template-columns: 1fr; }
+  .spin-banner { flex-direction: column; text-align: center; align-items: center; }
+  .more-bundles-banner { flex-direction: column; text-align: center; align-items: center; }
+  .more-bundles-cta-btn { width: 100%; }
+  .mza-banner { flex-direction: column; }
+  .mza-btns { flex-direction: row; width: 100%; }
+  .mza-store-btn { flex: 1; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="brand">
+      <img src="logo.jpg" alt="Zong Bundles" style="height:48px;width:auto;display:block;" />
+    </div>
+    <button class="lang-btn" id="urduToggle">اردو</button>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag" id="hero-tag">Lahore · 5G Network</div>
+      <h1 id="hero-title">The <span class="pink">best</span> bundles<br>for <span class="green">Lahore</span></h1>
+      <p class="hero-sub" id="hero-sub">Pick your perfect data, voice & SMS plan — weekly or monthly. Affordable, fast, reliable.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <div class="stat-num green">7</div>
+        <div class="stat-label" id="stat-plans">Top Plans</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num pink">Rs.140</div>
+        <div class="stat-label" id="stat-from">Starting From</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎡 Win Now Banner — links directly to MZA -->
+  <a class="spin-banner" id="winNowBanner" href="https://zong4g.onelink.me/JLUN/1730eng" target="_blank">
+    <div class="spin-free-badge" id="spin-free-tag">FREE</div>
+    <svg class="spin-wheel-preview" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+      <path d="M50,50 L50,2 A48,48 0 0,1 91.6,26 Z" fill="#7DC72A"/>
+      <path d="M50,50 L91.6,26 A48,48 0 0,1 98,50 Z" fill="#E0147A"/>
+      <path d="M50,50 L98,50 A48,48 0 0,1 91.6,74 Z" fill="#D48C0A"/>
+      <path d="M50,50 L91.6,74 A48,48 0 0,1 74,96.6 Z" fill="#6B3FA0"/>
+      <path d="M50,50 L74,96.6 A48,48 0 0,1 26,96.6 Z" fill="#7DC72A"/>
+      <path d="M50,50 L26,96.6 A48,48 0 0,1 8.4,74 Z" fill="#E0147A"/>
+      <path d="M50,50 L8.4,74 A48,48 0 0,1 2,50 Z" fill="#D48C0A"/>
+      <path d="M50,50 L2,50 A48,48 0 0,1 8.4,26 Z" fill="#6B3FA0"/>
+      <path d="M50,50 L8.4,26 A48,48 0 0,1 50,2 Z" fill="#7DC72A"/>
+      <circle cx="50" cy="50" r="10" fill="white"/>
+      <circle cx="50" cy="50" r="6" fill="#1A1A2E"/>
+    </svg>
+    <div class="spin-banner-text">
+      <h2 id="spin-banner-h2">🎁 Play & <span>Win Free Data!</span></h2>
+      <p id="spin-banner-p">First scan gets one FREE spin. Win up to 1GB bonus data, SMS packs & discounts.</p>
+    </div>
+    <button class="spin-cta-btn" id="spin-banner-btn">Win Now →</button>
+  </a>
+
+  <!-- 🎯 Quiz Strip -->
+  <div class="quiz-strip" id="openQuizBtn">
+    <div class="quiz-strip-left">
+      <div class="quiz-strip-emoji">🎯</div>
+      <div>
+        <div class="quiz-strip-title" id="quiz-strip-title">Not sure which plan to pick?</div>
+        <div class="quiz-strip-sub" id="quiz-strip-sub">Answer 3 quick questions — we'll find your perfect bundle in 30 seconds.</div>
+      </div>
+    </div>
+    <button class="quiz-strip-btn" id="quiz-strip-btn">Find My Plan →</button>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="filterCards('all', this)" id="tab-all">All Plans</button>
+    <button class="tab" onclick="filterCards('weekly', this)" id="tab-weekly">Weekly</button>
+    <button class="tab" onclick="filterCards('monthly', this)" id="tab-monthly">Monthly</button>
+  </div>
+
+  <!-- Bundle Grid -->
+  <div class="grid" id="grid"></div>
+
+  <!-- 📦 More Bundles on My Zong App Banner -->
+  <a class="more-bundles-banner" href="https://zong4g.onelink.me/JLUN/bnZ123" target="_blank" id="moreBundlesBanner">
+    <div class="more-bundles-icon">📦</div>
+    <div class="more-bundles-text">
+      <div class="more-bundles-eyebrow" id="more-bundles-eyebrow">My Zong App</div>
+      <div class="more-bundles-title" id="more-bundles-title">Check out more bundles on the My Zong App</div>
+      <div class="more-bundles-sub" id="more-bundles-sub">Explore the full range of data, voice & SMS bundles — exclusive deals available only on the app.</div>
+    </div>
+    <button class="more-bundles-cta-btn" id="more-bundles-btn">Explore Now →</button>
+  </a>
+
+  <!-- 📱 MZA App Banner -->
+  <div class="mza-banner">
+    <div class="mza-icon-wrap">📱</div>
+    <div class="mza-text">
+      <div class="mza-label" id="mza-label">Official Zong App</div>
+      <div class="mza-title" id="mza-title">Get daily rewards on <span>My Zong App</span></div>
+      <div class="mza-sub" id="mza-sub">Download My Zong App and unlock daily data rewards, exclusive app-only deals, and manage your bundles on the go.</div>
+      <div class="mza-rewards">
+        <div class="mza-reward-chip" id="mza-chip1">🎁 Daily Rewards</div>
+        <div class="mza-reward-chip" id="mza-chip2">⚡ App-Only Deals</div>
+        <div class="mza-reward-chip" id="mza-chip3">📊 Usage Tracker</div>
+        <div class="mza-reward-chip" id="mza-chip4">🔔 Bundle Alerts</div>
+      </div>
+    </div>
+    <div class="mza-btns">
+      <a href="https://play.google.com/store/apps/details?id=com.zong.myzong" target="_blank" class="mza-store-btn">
+        <div class="mza-store-icon">▶</div>
+        <div class="mza-store-text">
+          <div class="mza-store-small" id="mza-google-small">GET IT ON</div>
+          <div class="mza-store-name">Google Play</div>
+        </div>
+      </a>
+      <a href="https://apps.apple.com/pk/app/my-zong/id1500430553" target="_blank" class="mza-store-btn">
+        <div class="mza-store-icon">🍎</div>
+        <div class="mza-store-text">
+          <div class="mza-store-small" id="mza-apple-small">DOWNLOAD ON THE</div>
+          <div class="mza-store-name">App Store</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+     QUIZ MODAL
+════════════════════════════════════════ -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('quizModal')">✕</button>
+    <div class="quiz-modal-title" id="quiz-modal-title">🎯 Find Your Perfect Plan</div>
+    <div class="quiz-modal-sub" id="quiz-modal-sub">3 quick questions — 30 seconds</div>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div></div>
+    <div id="quizBody"></div>
+    <div class="quiz-result" id="quizResult">
+      <div style="font-size:2.5rem;margin-bottom:.5rem">🎉</div>
+      <div class="quiz-result-title">Your Perfect Plan</div>
+      <div class="quiz-result-sub">Based on your answers, we recommend:</div>
+      <div class="quiz-rec-card" id="quizRecCard"></div>
+      <button class="quiz-subscribe-btn" id="quizSubBtn">Subscribe Now →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script>
+// ── Bundle Data ──────────────────────────────────────
+const bundles = [
+  { name:'Haftawar Voice Offer',  price:140,  data:'1GB + WhatsApp 20GB',       voice:'All-net 1,000',             sms:'1,000',  validity:'7 days',  code:'*4466#', period:'weekly',  stripe:'#7DC72A', cta:'cta-green' },
+  { name:'Area Play Ultra',       price:400,  data:'35GB',                        voice:'On-net 5,000 · Off-net 200', sms:'5,000',  validity:'7 days',  code:'*4466#', period:'weekly',  stripe:'#E0147A', cta:'cta-pink',  popular:true },
+  { name:'Weekly Premium',        price:500,  data:'30GB',                        voice:'On-net 5,000 · Off-net 180', sms:'5,000',  validity:'7 days',  code:'*2250#', period:'weekly',  stripe:'#6B3FA0', cta:'cta-green' },
+  { name:'Weekly Digital Max',    price:600,  data:'100GB',                       voice:'On-net 10,000 · Off-net 1,000', sms:'10,000', validity:'7 days',  code:'*1601#', period:'weekly',  stripe:'#D48C0A', cta:'cta-pink'  },
+  { name:'Maheena Bhar Offer',    price:580,  data:'10GB + WhatsApp 20GB',       voice:'All-net 2,000',             sms:'2,000',  validity:'30 days', code:'*4466#', period:'monthly', stripe:'#7DC72A', cta:'cta-green' },
+  { name:'Monthly Pro Max Basic', price:2100, data:'200GB',                       voice:'On-net 20,000 · Off-net 2,000', sms:'20,000', validity:'30 days', code:'*7340#', period:'monthly', stripe:'#E0147A', cta:'cta-pink'  },
+  { name:'MY5',                   price:5300, data:'200GB',                       voice:'On-net 20,000 · Off-net 2,000', sms:'20,000', validity:'30 days', code:'*7334#', period:'monthly', stripe:'#6B3FA0', cta:'cta-green', sub:'Share with up to 4 numbers via MyZong App' },
+];
+
+// ── Language data ────────────────────────────────────
+let isUrdu = false;
+const T = {
+  en: {
+    'hero-tag':    'Lahore · 5G Network',
+    'hero-title':  'The <span class="pink">best</span> bundles<br>for <span class="green">Lahore</span>',
+    'hero-sub':    'Pick your perfect data, voice & SMS plan — weekly or monthly. Affordable, fast, reliable.',
+    'stat-plans':  'Top Plans',
+    'stat-from':   'Starting From',
+    'tab-all':     'All Plans',
+    'tab-weekly':  'Weekly',
+    'tab-monthly': 'Monthly',
+    'feat-data':   'Data',
+    'feat-voice':  'Voice',
+    'feat-sms':    'SMS',
+    'feat-sub':    'Subscribe',
+    'feat-dial':   'Dial',
+    'feat-msgs':   'messages',
+    'feat-mins':   'mins',
+    'cta':         'Subscribe Now',
+    'popular':     'Most Popular',
+    'my5-sub':     'Share with up to 4 numbers via MyZong App',
+    'spin-banner-h2':  '🎁 Spin & <span>Win Free Data!</span>',
+    'spin-banner-p':   'First scan gets one FREE spin. Win up to 1GB bonus data, SMS packs & discounts.',
+    'spin-banner-btn': 'Win Now →',
+    'spin-free-tag':   'FREE',
+    'quiz-strip-title':'Not sure which plan to pick?',
+    'quiz-strip-sub':  "Answer 3 quick questions — we'll find your perfect bundle in 30 seconds.",
+    'quiz-strip-btn':  'Find My Plan →',
+    'quiz-modal-title':'🎯 Find Your Perfect Plan',
+    'quiz-modal-sub':  '3 quick questions — 30 seconds',
+    'more-bundles-eyebrow': 'My Zong App',
+    'more-bundles-title':   'Check out more bundles on the My Zong App',
+    'more-bundles-sub':     'Explore the full range of data, voice & SMS bundles — exclusive deals available only on the app.',
+    'more-bundles-btn':     'Explore Now →',
+    'mza-label':       'Official Zong App',
+    'mza-title':       'Get daily rewards on MZA App',
+    'mza-sub':         'Download My Zong App and unlock daily data rewards, exclusive app-only deals, and manage your bundles on the go.',
+    'mza-chip1':       '🎁 Daily Rewards',
+    'mza-chip2':       '⚡ App-Only Deals',
+    'mza-chip3':       '📊 Usage Tracker',
+    'mza-chip4':       '🔔 Bundle Alerts',
+    'mza-google-small':'GET IT ON',
+    'mza-apple-small': 'DOWNLOAD ON THE',
+  },
+  ur: {
+    'hero-tag':    'لاہور · 5G نیٹ ورک',
+    'hero-title':  'لاہور کے لیے <span class="pink">بہترین</span> <span class="green">بنڈلز</span>',
+    'hero-sub':    'ہفتہ وار یا ماہانہ — ڈیٹا، وائس اور ایس ایم ایس کا بہترین پلان چنیں۔',
+    'stat-plans':  'بہترین پلانز',
+    'stat-from':   'شروعات',
+    'tab-all':     'تمام پلانز',
+    'tab-weekly':  'ہفتہ وار',
+    'tab-monthly': 'ماہانہ',
+    'feat-data':   'ڈیٹا',
+    'feat-voice':  'وائس',
+    'feat-sms':    'ایس ایم ایس',
+    'feat-sub':    'سبسکرائب کریں',
+    'feat-dial':   'ڈائل کریں',
+    'feat-msgs':   'پیغامات',
+    'feat-mins':   'منٹ',
+    'cta':         'ابھی سبسکرائب کریں',
+    'popular':     'سب سے مشہور',
+    'my5-sub':     'MyZong ایپ کے ذریعے 4 نمبروں کے ساتھ شیئر کریں',
+    'spin-banner-h2':  '🎁 اسپن کریں اور <span>مفت ڈیٹا جیتیں!</span>',
+    'spin-banner-p':   'پہلی اسکین پر ایک مفت اسپن ملتا ہے۔ 1GB ڈیٹا، SMS پیکج اور ڈسکاؤنٹ جیتیں۔',
+    'spin-banner-btn': 'ابھی جیتیں →',
+    'spin-free-tag':   'مفت',
+    'quiz-strip-title':'یقین نہیں کہ کون سا پلان چنیں؟',
+    'quiz-strip-sub':  '3 سوالات — 30 سیکنڈ میں آپ کا بہترین بنڈل ملے گا۔',
+    'quiz-strip-btn':  'میرا پلان تلاش کریں →',
+    'quiz-modal-title':'🎯 اپنا بہترین پلان تلاش کریں',
+    'quiz-modal-sub':  '3 سوالات — 30 سیکنڈ',
+    'more-bundles-eyebrow': 'My Zong App',
+    'more-bundles-title':   'My Zong App پر مزید بنڈلز دیکھیں',
+    'more-bundles-sub':     'ڈیٹا، وائس اور SMS کے تمام بنڈلز دریافت کریں — صرف ایپ پر خصوصی ڈیلز۔',
+    'more-bundles-btn':     'ابھی دیکھیں →',
+    'mza-label':       'زونگ کی سرکاری ایپ',
+    'mza-title':       'MZA ایپ پر روزانہ انعامات حاصل کریں',
+    'mza-sub':         'My Zong App ڈاؤن لوڈ کریں اور روزانہ ڈیٹا انعامات، خصوصی ایپ ڈیلز اور اپنے بنڈلز کا انتظام کریں۔',
+    'mza-chip1':       '🎁 روزانہ انعامات',
+    'mza-chip2':       '⚡ ایپ خصوصی ڈیلز',
+    'mza-chip3':       '📊 استعمال ٹریکر',
+    'mza-chip4':       '🔔 بنڈل الرٹس',
+    'mza-google-small':'ڈاؤن لوڈ کریں',
+    'mza-apple-small': 'ڈاؤن لوڈ کریں',
+  }
+};
+function getLang() { return isUrdu ? T.ur : T.en; }
+
+// ── Modal helpers ──────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
+});
+
+// ══════════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════════
+const questions = [
+  {
+    q: 'How do you mainly use your phone?',
+    opts: [
+      { icon:'📱', en:'Social media & WhatsApp', ur:'سوشل میڈیا اور واٹس ایپ', tag:'social' },
+      { icon:'📞', en:'Mostly calls',             ur:'زیادہ تر کالز',            tag:'calls'  },
+      { icon:'🎮', en:'Streaming & gaming',       ur:'اسٹریمنگ اور گیمنگ',      tag:'heavy'  },
+      { icon:'💼', en:'Work & business',           ur:'کام اور کاروبار',          tag:'work'   },
+    ]
+  },
+  {
+    q: "What's your budget?",
+    opts: [
+      { icon:'💵', en:'Under Rs.200',    ur:'200 روپے سے کم',      tag:'low'     },
+      { icon:'💵', en:'Rs.200–Rs.600',   ur:'200–600 روپے',         tag:'mid'     },
+      { icon:'💵', en:'Rs.600–Rs.2,500', ur:'600–2,500 روپے',       tag:'high'    },
+      { icon:'💵', en:'Rs.2,500+',       ur:'2,500 روپے سے زیادہ',  tag:'premium' },
+    ]
+  },
+  {
+    q: 'How long should your plan last?',
+    opts: [
+      { icon:'📅', en:'Just a week', ur:'صرف ایک ہفتہ', tag:'weekly'  },
+      { icon:'📅', en:'Full month',  ur:'پورا مہینہ',    tag:'monthly' },
+    ]
+  }
+];
+let quizAnswers = [], quizStep = 0;
+
+function renderQuizStep() {
+  const body = document.getElementById('quizBody');
+  const q    = questions[quizStep];
+  document.getElementById('quizProgressFill').style.width = (quizStep / questions.length * 100) + '%';
+  body.innerHTML = `
+    <div class="quiz-step-label">Question ${quizStep + 1} of ${questions.length}</div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o, i) => `
+        <button class="quiz-opt" onclick="pickQuizOpt(${i})">
+          <span class="quiz-opt-icon">${o.icon}</span>
+          <span>${isUrdu ? o.ur : o.en}</span>
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
+function pickQuizOpt(i) {
+  quizAnswers[quizStep] = questions[quizStep].opts[i].tag;
+  quizStep++;
+  if (quizStep < questions.length) { renderQuizStep(); }
+  else { showQuizResult(); }
+}
+
+function showQuizResult() {
+  document.getElementById('quizProgressFill').style.width = '100%';
+  document.getElementById('quizBody').style.display = 'none';
+  const [usage, budget, period] = quizAnswers;
+  let rec;
+  if (period === 'weekly') {
+    if (budget === 'low')      rec = bundles[0];
+    else if (budget === 'mid') rec = bundles[1];
+    else                       rec = bundles[3];
+  } else {
+    if (budget === 'low' || budget === 'mid') rec = bundles[4];
+    else if (budget === 'high')               rec = bundles[5];
+    else                                      rec = bundles[6];
+  }
+  if (usage === 'calls' && period === 'weekly') rec = bundles[0];
+  if (usage === 'heavy' && period === 'weekly') rec = bundles[3];
+  const lang = getLang();
+  document.getElementById('quizRecCard').innerHTML = `
+    <div class="quiz-rec-name">${rec.name}</div>
+    <div class="quiz-rec-price">Rs.${rec.price.toLocaleString()} / ${rec.validity}</div>
+    <div class="quiz-rec-details">📡 ${rec.data} &nbsp;·&nbsp; 📞 ${rec.voice} ${lang['feat-mins']} &nbsp;·&nbsp; ✉ ${rec.sms} ${lang['feat-msgs']}</div>
+  `;
+  document.getElementById('quizSubBtn').onclick = () => {
+    closeModal('quizModal');
+    scrollToBundle(rec.name);
+    sendSubscription(rec.name);
+    setTimeout(() => { window.location.href = `tel:${encodeURIComponent(rec.code)}`; }, 300);
+  };
+  document.getElementById('quizResult').classList.add('show');
+}
+
+function scrollToBundle(name) {
+  document.querySelectorAll('.card').forEach(c => {
+    if (c.querySelector('.card-name')?.textContent === name) {
+      c.scrollIntoView({ behavior:'smooth', block:'center' });
+      c.style.boxShadow = '0 0 0 3px var(--lime)';
+      setTimeout(() => c.style.boxShadow = '', 2000);
+    }
+  });
+}
+
+document.getElementById('openQuizBtn').addEventListener('click', () => {
+  quizAnswers = []; quizStep = 0;
+  document.getElementById('quizBody').style.display = '';
+  document.getElementById('quizResult').classList.remove('show');
+  renderQuizStep();
+  openModal('quizModal');
+});
+
+// ── Card builder ─────────────────────────────────────
+function makeCard(b) {
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.dataset.period = b.period;
+  const lang = getLang();
+  el.innerHTML = `
+    <div class="card-stripe" style="background:${b.stripe}"></div>
+    ${b.popular ? `<div class="popular-chip">${lang['popular']}</div>` : ''}
+    <div class="card-top">
+      <div>
+        <div class="card-name">${b.name}</div>
+        ${b.sub ? `<div class="card-sub">${lang['my5-sub']}</div>` : ''}
+      </div>
+      <div class="price-badge">
+        <span class="price-amt">Rs.${b.price.toLocaleString()}</span>
+        <div class="price-label">${b.validity}</div>
+      </div>
+    </div>
+    <ul class="features">
+      <li class="feat">
+        <div class="feat-icon" style="background:#F2FBEA;color:#7DC72A">◈</div>
+        <div class="feat-body">
+          <div class="feat-key" style="color:#7DC72A">${lang['feat-data']}</div>
+          <div class="feat-val">${b.data}</div>
+        </div>
+      </li>
+      <li class="feat">
+        <div class="feat-icon" style="background:#FEF0F7;color:#E0147A">◎</div>
+        <div class="feat-body">
+          <div class="feat-key" style="color:#E0147A">${lang['feat-voice']}</div>
+          <div class="feat-val">${b.voice} ${lang['feat-mins']}</div>
+        </div>
+      </li>
+      <li class="feat">
+        <div class="feat-icon" style="background:#F3EFFE;color:#6B3FA0">✉</div>
+        <div class="feat-body">
+          <div class="feat-key" style="color:#6B3FA0">${lang['feat-sms']}</div>
+          <div class="feat-val">${b.sms} ${lang['feat-msgs']}</div>
+        </div>
+      </li>
+      <li class="feat">
+        <div class="feat-icon" style="background:#FEF8E7;color:#D48C0A">⌨</div>
+        <div class="feat-body">
+          <div class="feat-key" style="color:#D48C0A">${lang['feat-sub']}</div>
+          <div class="feat-val">${lang['feat-dial']} <span class="dial-chip" style="direction:ltr;display:inline-block">${b.code}</span></div>
+        </div>
+      </li>
+    </ul>
+    <a href="tel:${encodeURIComponent(b.code)}" class="cta ${b.cta}" data-bundle="${b.name}">${lang['cta']}</a>
+  `;
+  return el;
+}
+
+// ── Render grid ───────────────────────────────────────
+const grid = document.getElementById('grid');
+function render(filter) {
+  grid.innerHTML = '';
+  bundles.filter(b => filter === 'all' || b.period === filter).forEach(b => grid.appendChild(makeCard(b)));
+}
+function filterCards(f, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  render(f);
+}
+render('all');
+
+// ── Subscribe Click → Google Form ────────────────────
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.cta');
+  if (!btn) return;
+  e.preventDefault();
+  const bundleName = btn.dataset.bundle;
+  sendSubscription(bundleName);
+  const href = btn.getAttribute('href');
+  setTimeout(() => { window.location.href = href; }, 300);
+});
+
+// ── User ID ──────────────────────────────────────────
+function getUserID() {
+  let id = localStorage.getItem('userID');
+  if (!id) {
+    const now = new Date();
+    const date = now.toISOString().split('T')[0].replace(/-/g, '');
+    const time = now.toTimeString().split(' ')[0].replace(/:/g, '');
+    const device = /Mobi|Android/i.test(navigator.userAgent) ? 'mob' : 'desk';
+    let browser = 'unknown';
+    if (navigator.userAgent.includes('Chrome'))       browser = 'chrome';
+    else if (navigator.userAgent.includes('Firefox')) browser = 'firefox';
+    else if (navigator.userAgent.includes('Safari'))  browser = 'safari';
+    else if (navigator.userAgent.includes('Edge'))    browser = 'edge';
+    id = `user-${device}-${browser}-${date}-${time}`;
+    localStorage.setItem('userID', id);
+  }
+  return id;
+}
+
+// ── Google Form Submission ───────────────────────────
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScchuubG7wocVQgV_1wULA_jRKi9MVLmjV7boakX9-FmUUXNA/formResponse';
+
+function sendLocation(latitude, longitude, city = '', country = '') {
+  const timestamp = new Date().toISOString();
+  const userID = getUserID();
+  const fd = new FormData();
+  fd.append('entry.1130438412', userID);
+  fd.append('entry.530532629',  latitude);
+  fd.append('entry.145618225',  longitude);
+  fd.append('entry.1853640273', city);
+  fd.append('entry.677817365',  country);
+  fd.append('entry.334526695',  '');
+  fd.append('entry.2038474072', timestamp);
+  fetch(FORM_URL, { method:'POST', mode:'no-cors', body:fd });
+}
+
+function sendSubscription(bundleName) {
+  const timestamp = new Date().toISOString();
+  const userID = getUserID();
+  const fd = new FormData();
+  fd.append('entry.1130438412', userID);
+  fd.append('entry.530532629',  '');
+  fd.append('entry.145618225',  '');
+  fd.append('entry.1853640273', '');
+  fd.append('entry.677817365',  '');
+  fd.append('entry.334526695',  bundleName);
+  fd.append('entry.2038474072', timestamp);
+  fetch(FORM_URL, { method:'POST', mode:'no-cors', body:fd });
+}
+
+function fetchIPLocation() {
+  fetch('https://ipinfo.io/json?token=a14ee8911d1267')
+    .then(r => r.json())
+    .then(data => {
+      if (data.loc) {
+        const [lat, lng] = data.loc.split(',');
+        if ((data.country || '') === 'PK') sendLocation(lat, lng, data.city || '', data.country || '');
+      }
+    })
+    .catch(console.error);
+}
+
+if ('geolocation' in navigator) {
+  navigator.geolocation.getCurrentPosition(
+    pos => sendLocation(pos.coords.latitude, pos.coords.longitude, '', ''),
+    err => { console.warn('GPS error:', err.message); fetchIPLocation(); },
+    { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
+  );
+} else {
+  fetchIPLocation();
+}
+
+// ── Urdu Toggle ──────────────────────────────────────
+function applyStaticTranslation() {
+  const lang = getLang();
+  document.getElementById('hero-title').innerHTML      = lang['hero-title'];
+  document.getElementById('spin-banner-h2').innerHTML  = lang['spin-banner-h2'];
+  [
+    'hero-tag','hero-sub','stat-plans','stat-from','tab-all','tab-weekly','tab-monthly',
+    'spin-banner-p','spin-banner-btn','spin-free-tag',
+    'quiz-strip-title','quiz-strip-sub','quiz-strip-btn',
+    'quiz-modal-title','quiz-modal-sub',
+    'more-bundles-eyebrow','more-bundles-title','more-bundles-sub','more-bundles-btn',
+    'mza-label','mza-sub',
+    'mza-chip1','mza-chip2','mza-chip3','mza-chip4',
+    'mza-google-small','mza-apple-small',
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = lang[id];
+  });
+  const mzaTitleEl = document.getElementById('mza-title');
+  if (mzaTitleEl) {
+    mzaTitleEl.innerHTML = isUrdu
+      ? 'MZA ایپ پر روزانہ انعامات حاصل کریں'
+      : 'Get daily rewards on <span>MZA App</span>';
+  }
+}
+
+document.getElementById('urduToggle').addEventListener('click', () => {
+  isUrdu = !isUrdu;
+  document.body.classList.toggle('urdu-mode', isUrdu);
+  document.getElementById('urduToggle').textContent = isUrdu ? 'English' : 'اردو';
+  applyStaticTranslation();
+  const activeTab = document.querySelector('.tab.active');
+  const filterId  = activeTab ? activeTab.id.replace('tab-', '') : 'all';
+  render(filterId);
+  if (quizStep < questions.length) renderQuizStep();
+});
+</script>
+
+</body>
+</html>
