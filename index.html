@@ -448,6 +448,61 @@ body.urdu-mode .quiz-opt { text-align: right; flex-direction: row-reverse; }
   .mza-btns { flex-direction: row; width: 100%; }
   .mza-store-btn { flex: 1; justify-content: center; }
 }
+
+body.urdu-mode .quiz-rec-card {
+  direction: rtl;
+  text-align: right;
+}
+body.urdu-mode .quiz-rec-details {
+  direction: rtl;
+  text-align: right;
+}
+body.urdu-mode .quiz-result-title,
+body.urdu-mode .quiz-result-sub {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Survey question styles */
+.sv-opt {
+  border:1.5px solid var(--border);background:var(--white);border-radius:14px;
+  padding:.8rem 1rem;text-align:left;font-family:inherit;font-size:.88rem;
+  font-weight:600;color:var(--ink);cursor:pointer;
+  display:flex;align-items:center;gap:.75rem;transition:all .15s;width:100%;margin-bottom:.55rem;
+}
+.sv-opt:hover,.sv-opt.selected { border-color:var(--fuchsia);background:var(--fuchsia-bg);color:var(--fuchsia); }
+.sv-opt-icon { font-size:1.1rem;flex-shrink:0; }
+.sv-nps { display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.4rem; }
+.sv-nps-btn {
+  flex:1;min-width:36px;height:40px;border:1.5px solid var(--border);
+  background:var(--white);border-radius:10px;font-family:inherit;
+  font-weight:700;font-size:.85rem;color:var(--muted);cursor:pointer;transition:all .15s;
+}
+.sv-nps-btn:hover,.sv-nps-btn.selected { border-color:var(--fuchsia);background:var(--fuchsia);color:#fff; }
+.sv-textarea {
+  width:100%;border:1.5px solid var(--border);border-radius:14px;
+  padding:.85rem 1rem;font-family:inherit;font-size:.85rem;color:var(--ink);
+  background:var(--surface);resize:vertical;min-height:100px;
+  transition:border-color .2s;outline:none;line-height:1.6;
+}
+.sv-textarea:focus { border-color:var(--fuchsia); }
+.sv-textarea::placeholder { color:var(--muted); }
+.sv-next-btn {
+  display:block;width:100%;background:var(--fuchsia);color:#fff;
+  font-family:inherit;font-weight:800;font-size:.92rem;padding:.85rem;
+  border:none;border-radius:14px;cursor:pointer;margin-top:1.25rem;
+  transition:opacity .15s,transform .15s;box-shadow:0 3px 16px rgba(224,20,122,.35);
+}
+.sv-next-btn:hover { opacity:.88;transform:translateY(-1px); }
+.sv-next-btn:disabled { opacity:.4;cursor:not-allowed;transform:none; }
+body.urdu-mode .sv-opt { text-align:right;flex-direction:row-reverse; }
+body.urdu-mode .sv-textarea { text-align:right;direction:rtl; }
+body.urdu-mode #svBody { direction:rtl; }
+body.urdu-mode #surveyModal .sv-header { direction:rtl; }
+body.urdu-mode .sv-nps { flex-direction:row-reverse; }
+@media(max-width:640px){
+  #surveyModal .modal { max-height:95vh;border-radius:20px; }
+}
 </style>
 </head>
 <body>
@@ -459,7 +514,10 @@ body.urdu-mode .quiz-opt { text-align: right; flex-direction: row-reverse; }
     <div class="brand">
       <img src="logo.jpg" alt="Zong Bundles" style="height:48px;width:auto;display:block;" />
     </div>
-    <button class="lang-btn" id="urduToggle">اردو</button>
+    <div style="display:flex;align-items:center;gap:.6rem;">
+      <button id="openSurveyBtn" style="border:1.5px solid #f0a8cc;background:var(--fuchsia-bg);color:var(--fuchsia);padding:.4rem 1rem;border-radius:9999px;font-family:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:border-color .2s;white-space:nowrap;" id="sv-topbar-btn">📋 Give Feedback</button>
+      <button class="lang-btn" id="urduToggle">اردو</button>
+    </div>
   </div>
 
   <!-- Hero -->
@@ -596,15 +654,14 @@ body.urdu-mode .quiz-opt { text-align: right; flex-direction: row-reverse; }
 <script>
 // ── Bundle Data ──────────────────────────────────────
 const bundles = [
-  { name:'Haftawar Voice Offer',  price:140,  data:'1GB + WhatsApp 20GB',       voice:'All-net 1,000',             sms:'1,000',  validity:'7 days',  code:'*4466#', period:'weekly',  stripe:'#7DC72A', cta:'cta-green' },
-  { name:'Area Play Ultra',       price:400,  data:'35GB',                        voice:'On-net 5,000 · Off-net 200', sms:'5,000',  validity:'7 days',  code:'*4466#', period:'weekly',  stripe:'#E0147A', cta:'cta-pink',  popular:true },
-  { name:'Weekly Premium',        price:500,  data:'30GB',                        voice:'On-net 5,000 · Off-net 180', sms:'5,000',  validity:'7 days',  code:'*2250#', period:'weekly',  stripe:'#6B3FA0', cta:'cta-green' },
-  { name:'Weekly Digital Max',    price:600,  data:'100GB',                       voice:'On-net 10,000 · Off-net 1,000', sms:'10,000', validity:'7 days',  code:'*1601#', period:'weekly',  stripe:'#D48C0A', cta:'cta-pink'  },
-  { name:'Maheena Bhar Offer',    price:580,  data:'10GB + WhatsApp 20GB',       voice:'All-net 2,000',             sms:'2,000',  validity:'30 days', code:'*4466#', period:'monthly', stripe:'#7DC72A', cta:'cta-green' },
-  { name:'Monthly Pro Max Basic', price:2100, data:'200GB',                       voice:'On-net 20,000 · Off-net 2,000', sms:'20,000', validity:'30 days', code:'*7340#', period:'monthly', stripe:'#E0147A', cta:'cta-pink'  },
-  { name:'MY5',                   price:5300, data:'200GB',                       voice:'On-net 20,000 · Off-net 2,000', sms:'20,000', validity:'30 days', code:'*7334#', period:'monthly', stripe:'#6B3FA0', cta:'cta-green', sub:'Share with up to 4 numbers via MyZong App' },
+  { name:'Haftawar Voice Offer',  price:140,  dataEn:'1GB + WhatsApp 20GB',       dataUr:'1GB + واٹس ایپ 20GB',       voiceEn:'تمام نیٹ ورک 1,000',             voiceUr:'تمام نیٹ ورک 1,000',             sms:'1,000',  validity:'7 days',  validityUr:'7 دن',   code:'*4466#', period:'weekly',  stripe:'#7DC72A', cta:'cta-green' },
+  { name:'Area Play Ultra',       price:400,  dataEn:'35GB',                        dataUr:'35GB',                        voiceEn:'On-net 5,000 · Off-net 200',      voiceUr:'زونگ 5,000 · دیگر 200',           sms:'5,000',  validity:'7 days',  validityUr:'7 دن',   code:'*4466#', period:'weekly',  stripe:'#E0147A', cta:'cta-pink',  popular:true },
+  { name:'Weekly Premium',        price:500,  dataEn:'30GB',                        dataUr:'30GB',                        voiceEn:'On-net 5,000 · Off-net 180',      voiceUr:'زونگ 5,000 · دیگر 180',           sms:'5,000',  validity:'7 days',  validityUr:'7 دن',   code:'*2250#', period:'weekly',  stripe:'#6B3FA0', cta:'cta-green' },
+  { name:'Weekly Digital Max',    price:600,  dataEn:'100GB',                       dataUr:'100GB',                       voiceEn:'On-net 10,000 · Off-net 1,000',   voiceUr:'زونگ 10,000 · دیگر 1,000',        sms:'10,000', validity:'7 days',  validityUr:'7 دن',   code:'*1601#', period:'weekly',  stripe:'#D48C0A', cta:'cta-pink'  },
+  { name:'Maheena Bhar Offer',    price:580,  dataEn:'10GB + WhatsApp 20GB',       dataUr:'10GB + واٹس ایپ 20GB',       voiceEn:'تمام نیٹ ورک 2,000',             voiceUr:'تمام نیٹ ورک 2,000',             sms:'2,000',  validity:'30 days', validityUr:'30 دن',  code:'*4466#', period:'monthly', stripe:'#7DC72A', cta:'cta-green' },
+  { name:'Monthly Pro Max Basic', price:2100, dataEn:'200GB',                       dataUr:'200GB',                       voiceEn:'On-net 20,000 · Off-net 2,000',   voiceUr:'زونگ 20,000 · دیگر 2,000',        sms:'20,000', validity:'30 days', validityUr:'30 دن',  code:'*7340#', period:'monthly', stripe:'#E0147A', cta:'cta-pink'  },
+  { name:'MY5',                   price:5300, dataEn:'200GB',                       dataUr:'200GB',                       voiceEn:'On-net 20,000 · Off-net 2,000',   voiceUr:'زونگ 20,000 · دیگر 2,000',        sms:'20,000', validity:'30 days', validityUr:'30 دن',  code:'*7334#', period:'monthly', stripe:'#6B3FA0', cta:'cta-green', sub:'Share with up to 4 numbers via MyZong App' },
 ];
-
 // ── Language data ────────────────────────────────────
 let isUrdu = false;
 const T = {
@@ -649,6 +706,7 @@ const T = {
     'mza-chip4':       '🔔 Bundle Alerts',
     'mza-google-small':'GET IT ON',
     'mza-apple-small': 'DOWNLOAD ON THE',
+    'sv-topbar-btn': '📋 Give Feedback',
   },
   ur: {
     'hero-tag':    'لاہور · 5G نیٹ ورک',
@@ -691,6 +749,7 @@ const T = {
     'mza-chip4':       '🔔 بنڈل الرٹس',
     'mza-google-small':'ڈاؤن لوڈ کریں',
     'mza-apple-small': 'ڈاؤن لوڈ کریں',
+    'sv-topbar-btn': '📋 رائے دیں',
   }
 };
 function getLang() { return isUrdu ? T.ur : T.en; }
@@ -707,7 +766,8 @@ document.querySelectorAll('.modal-overlay').forEach(o => {
 // ══════════════════════════════════════════
 const questions = [
   {
-    q: 'How do you mainly use your phone?',
+    q:  'How do you mainly use your phone?',
+    qUr:'آپ اپنا فون زیادہ تر کس کام کے لیے استعمال کرتے ہیں؟',
     opts: [
       { icon:'📱', en:'Social media & WhatsApp', ur:'سوشل میڈیا اور واٹس ایپ', tag:'social' },
       { icon:'📞', en:'Mostly calls',             ur:'زیادہ تر کالز',            tag:'calls'  },
@@ -716,7 +776,8 @@ const questions = [
     ]
   },
   {
-    q: "What's your budget?",
+    q:  "What's your budget?",
+    qUr:'آپ کا بجٹ کیا ہے؟',
     opts: [
       { icon:'💵', en:'Under Rs.200',    ur:'200 روپے سے کم',      tag:'low'     },
       { icon:'💵', en:'Rs.200–Rs.600',   ur:'200–600 روپے',         tag:'mid'     },
@@ -725,7 +786,8 @@ const questions = [
     ]
   },
   {
-    q: 'How long should your plan last?',
+    q:  'How long should your plan last?',
+    qUr:'آپ کا پلان کتنے عرصے کے لیے ہو؟',
     opts: [
       { icon:'📅', en:'Just a week', ur:'صرف ایک ہفتہ', tag:'weekly'  },
       { icon:'📅', en:'Full month',  ur:'پورا مہینہ',    tag:'monthly' },
@@ -739,8 +801,8 @@ function renderQuizStep() {
   const q    = questions[quizStep];
   document.getElementById('quizProgressFill').style.width = (quizStep / questions.length * 100) + '%';
   body.innerHTML = `
-    <div class="quiz-step-label">Question ${quizStep + 1} of ${questions.length}</div>
-    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-step-label">${isUrdu ? `سوال ${quizStep + 1} از ${questions.length}` : `Question ${quizStep + 1} of ${questions.length}`}</div>
+    <div class="quiz-q">${isUrdu ? q.qUr : q.q}</div>
     <div class="quiz-options">
       ${q.opts.map((o, i) => `
         <button class="quiz-opt" onclick="pickQuizOpt(${i})">
@@ -775,18 +837,44 @@ function showQuizResult() {
   }
   if (usage === 'calls' && period === 'weekly') rec = bundles[0];
   if (usage === 'heavy' && period === 'weekly') rec = bundles[3];
+
   const lang = getLang();
+
+  // Translate result heading strings
+  const resultTitle = isUrdu ? 'آپ کا بہترین پلان' : 'Your Perfect Plan';
+  const resultSub   = isUrdu ? 'آپ کے جوابات کی بنیاد پر، ہم تجویز کرتے ہیں:' : 'Based on your answers, we recommend:';
+  const subBtn      = isUrdu ? 'ابھی سبسکرائب کریں ←' : 'Subscribe Now →';
+
+  document.querySelector('.quiz-result-title').textContent = resultTitle;
+  document.querySelector('.quiz-result-sub').textContent   = resultSub;
+  document.getElementById('quizSubBtn').textContent        = subBtn;
+
+  document.getElementById('quizRecCard').closest('.modal').style.direction = isUrdu ? 'rtl' : 'ltr';
   document.getElementById('quizRecCard').innerHTML = `
     <div class="quiz-rec-name">${rec.name}</div>
-    <div class="quiz-rec-price">Rs.${rec.price.toLocaleString()} / ${rec.validity}</div>
-    <div class="quiz-rec-details">📡 ${rec.data} &nbsp;·&nbsp; 📞 ${rec.voice} ${lang['feat-mins']} &nbsp;·&nbsp; ✉ ${rec.sms} ${lang['feat-msgs']}</div>
+    <div class="quiz-rec-price" style="${isUrdu ? 'direction:rtl;text-align:right' : ''}">
+      ${isUrdu
+        ? `<span style="direction:rtl">${rec.validityUr}</span> / <span style="direction:ltr;unicode-bidi:embed">Rs.${rec.price.toLocaleString()}</span>`
+        : `Rs.${rec.price.toLocaleString()} / ${rec.validity}`
+      }
+    </div>
+    <div class="quiz-rec-details">
+      📡 <strong>${lang['feat-data']}:</strong> ${isUrdu ? rec.dataUr : rec.dataEn} &nbsp;·&nbsp;
+      📞 <strong>${lang['feat-voice']}:</strong> ${isUrdu ? rec.voiceUr : rec.voiceEn} ${lang['feat-mins']} &nbsp;·&nbsp;
+      ✉ <strong>${lang['feat-sms']}:</strong> ${rec.sms} ${lang['feat-msgs']}
+    </div>
+    <div class="quiz-rec-details" style="margin-top:6px">
+      ⌨ <strong>${lang['feat-sub']}:</strong> ${lang['feat-dial']} <span class="dial-chip" style="direction:ltr;display:inline-block">${rec.code}</span>
+    </div>
   `;
+
   document.getElementById('quizSubBtn').onclick = () => {
     closeModal('quizModal');
     scrollToBundle(rec.name);
     sendSubscription(rec.name);
     setTimeout(() => { window.location.href = `tel:${encodeURIComponent(rec.code)}`; }, 300);
   };
+
   document.getElementById('quizResult').classList.add('show');
 }
 
@@ -832,14 +920,14 @@ function makeCard(b) {
         <div class="feat-icon" style="background:#F2FBEA;color:#7DC72A">◈</div>
         <div class="feat-body">
           <div class="feat-key" style="color:#7DC72A">${lang['feat-data']}</div>
-          <div class="feat-val">${b.data}</div>
+          <div class="feat-val">${isUrdu ? b.dataUr : b.dataEn}</div>
         </div>
       </li>
       <li class="feat">
         <div class="feat-icon" style="background:#FEF0F7;color:#E0147A">◎</div>
         <div class="feat-body">
           <div class="feat-key" style="color:#E0147A">${lang['feat-voice']}</div>
-          <div class="feat-val">${b.voice} ${lang['feat-mins']}</div>
+          <div class="feat-val">${isUrdu ? b.voiceUr : b.voiceEn} ${lang['feat-mins']}</div>
         </div>
       </li>
       <li class="feat">
@@ -993,8 +1081,222 @@ document.getElementById('urduToggle').addEventListener('click', () => {
   const filterId  = activeTab ? activeTab.id.replace('tab-', '') : 'all';
   render(filterId);
   if (quizStep < questions.length) renderQuizStep();
+
+  if (document.getElementById('surveyModal').classList.contains('open')) {
+  applySvHeaderTranslation();
+  if (svStep < surveyQuestions.length) renderSvStep();
+}
+});
+
+
+
+// ══════════════════════════════════════════
+// CUSTOMER EXPERIENCE SURVEY
+// ══════════════════════════════════════════
+const surveyQuestions = [
+  {
+    id: 'satisfaction', type: 'options',
+    en:  'Overall, how satisfied are you with your Zong service?',
+    ur:  'مجموعی طور پر، آپ زونگ کی سروس سے کتنے مطمئن ہیں؟',
+    opts: [
+      { icon:'😄', en:'Very satisfied',    ur:'بہت مطمئن'          },
+      { icon:'🙂', en:'Satisfied',         ur:'مطمئن'              },
+      { icon:'😐', en:'Neutral',           ur:'نہ ہاں نہ نہیں'     },
+      { icon:'😕', en:'Dissatisfied',      ur:'غیر مطمئن'          },
+      { icon:'😞', en:'Very dissatisfied', ur:'بالکل مطمئن نہیں'   },
+    ]
+  },
+  {
+    id: 'signal', type: 'options',
+    en:  'How would you rate the Zong signal strength in your area?',
+    ur:  'اپنے علاقے میں زونگ کے سگنل کو آپ کیسے جانچتے ہیں؟',
+    opts: [
+      { icon:'📶', en:'Excellent — full bars everywhere',  ur:'بہترین — ہر جگہ پوری سگنل'         },
+      { icon:'📶', en:'Good — strong in most places',      ur:'اچھی — زیادہ تر جگہ مضبوط'         },
+      { icon:'📶', en:'Average — drops in some areas',     ur:'اوسط — کچھ جگہوں پر کمزور'         },
+      { icon:'📶', en:'Poor — weak signal frequently',     ur:'خراب — اکثر سگنل کمزور ہوتا ہے'    },
+      { icon:'📵', en:'Very poor — barely usable',         ur:'بہت خراب — استعمال کے قابل نہیں'   },
+    ]
+  },
+  {
+    id: 'pain_point', type: 'options',
+    en:  'What is your biggest challenge with Zong right now?',
+    ur:  'ابھی زونگ کے ساتھ آپ کا سب سے بڑا مسئلہ کیا ہے؟',
+    opts: [
+      { icon:'📡', en:'Weak or inconsistent signal',     ur:'کمزور یا غیر مستقل سگنل'       },
+      { icon:'🐢', en:'Slow internet speeds',            ur:'انٹرنیٹ کی رفتار سست ہے'        },
+      { icon:'📞', en:'Call drops or poor call quality', ur:'کال کٹنا یا آواز کی خرابی'      },
+      { icon:'💸', en:'Bundle prices are too high',      ur:'بنڈل کی قیمتیں بہت زیادہ ہیں'  },
+      { icon:'🎧', en:'Poor customer support',           ur:'کسٹمر سپورٹ ناقص ہے'           },
+      { icon:'✅', en:'No major issues',                 ur:'کوئی بڑا مسئلہ نہیں'            },
+    ]
+  },
+  {
+    id: 'data_usage', type: 'options',
+    en:  'How do you mainly use mobile data?',
+    ur:  'آپ موبائل ڈیٹا زیادہ تر کس کام کے لیے استعمال کرتے ہیں؟',
+    opts: [
+      { icon:'📱', en:'Social media & messaging',           ur:'سوشل میڈیا اور میسجنگ'              },
+      { icon:'🎬', en:'Video streaming (YouTube, TikTok)',  ur:'ویڈیو اسٹریمنگ (یوٹیوب، ٹک ٹاک)'  },
+      { icon:'💼', en:'Work — emails, video calls, files',  ur:'کام — ای میل، ویڈیو کالز، فائلیں'  },
+      { icon:'🎮', en:'Online gaming',                      ur:'آن لائن گیمنگ'                      },
+      { icon:'📞', en:'Mostly calls, minimal data',         ur:'زیادہ تر کالز، کم ڈیٹا'             },
+    ]
+  },
+  {
+    id: 'nps', type: 'nps',
+    en:  'How likely are you to recommend Zong to a friend or family member?',
+    ur:  'کسی دوست یا خاندان کے فرد کو زونگ تجویز کرنے کا آپ کا کتنا ارادہ ہے؟',
+    labelLowEn: 'Not at all likely', labelHighEn: 'Extremely likely',
+    labelLowUr: 'بالکل نہیں',        labelHighUr: 'یقیناً',
+  },
+  {
+    id: 'open', type: 'open',
+    en:  "Anything else you'd like Zong to know or improve? (Optional)",
+    ur:  'کیا کوئی اور چیز ہے جو آپ زونگ کو بتانا یا بہتر کروانا چاہتے ہیں؟ (اختیاری)',
+    placeholderEn: 'E.g. coverage issues in a specific area, bundle suggestions, billing problems...',
+    placeholderUr: 'مثلاً کسی خاص علاقے میں سگنل کا مسئلہ، بنڈل کی تجاویز، بلنگ کے مسائل...',
+  }
+];
+
+let svStep = 0;
+let svAnswers = {};
+
+function renderSvStep() {
+  const q = surveyQuestions[svStep];
+  const total = surveyQuestions.length;
+  document.getElementById('svProgressFill').style.width = (svStep / total * 100) + '%';
+  document.getElementById('svStepCounter').textContent = isUrdu
+    ? `سوال ${svStep + 1} از ${total}`
+    : `Question ${svStep + 1} of ${total}`;
+
+  const nextLabel = isUrdu
+    ? (svStep === total - 1 ? '← جمع کریں' : 'اگلا ←')
+    : (svStep === total - 1 ? 'Submit' : 'Next →');
+
+  let html = `
+    <div style="font-size:.7rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;">
+      ${isUrdu ? `سوال ${svStep + 1}` : `Question ${svStep + 1}`}
+    </div>
+    <div style="font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:1.1rem;line-height:1.45;">${isUrdu ? q.ur : q.en}</div>
+  `;
+
+  if (q.type === 'options') {
+    html += q.opts.map((o, i) => `
+      <button class="sv-opt${svAnswers[q.id] === i ? ' selected' : ''}" onclick="svPickOpt(${i})">
+        <span class="sv-opt-icon">${o.icon}</span>
+        <span>${isUrdu ? o.ur : o.en}</span>
+      </button>
+    `).join('');
+    html += `<button class="sv-next-btn" id="svNextBtn" onclick="svNext()" ${svAnswers[q.id] === undefined ? 'disabled' : ''}>${nextLabel}</button>`;
+  }
+
+  if (q.type === 'nps') {
+    const sel = svAnswers[q.id];
+    html += `<div class="sv-nps">
+      ${[1,2,3,4,5,6,7,8,9,10].map(n =>
+        `<button class="sv-nps-btn${sel === n ? ' selected' : ''}" onclick="svPickNps(${n})">${n}</button>`
+      ).join('')}
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-bottom:.5rem;">
+      <span>${isUrdu ? q.labelHighUr : q.labelLowEn}</span>
+      <span>${isUrdu ? q.labelLowUr : q.labelHighEn}</span>
+    </div>`;
+    html += `<button class="sv-next-btn" id="svNextBtn" onclick="svNext()" ${sel === undefined ? 'disabled' : ''}>${nextLabel}</button>`;
+  }
+
+  if (q.type === 'open') {
+    html += `<textarea class="sv-textarea" id="svOpenText"
+      placeholder="${isUrdu ? q.placeholderUr : q.placeholderEn}"
+      oninput="svAnswers['${q.id}']=this.value">${svAnswers[q.id] || ''}</textarea>
+      <div style="font-size:.75rem;color:var(--muted);text-align:center;margin-top:.75rem;cursor:pointer;text-decoration:underline;" onclick="svNext()">
+        ${isUrdu ? 'چھوڑیں' : 'Skip this question'}
+      </div>`;
+    html += `<button class="sv-next-btn" onclick="svNext()">${nextLabel}</button>`;
+  }
+
+  document.getElementById('svBody').innerHTML = html;
+}
+
+function svPickOpt(i) {
+  svAnswers[surveyQuestions[svStep].id] = i;
+  document.querySelectorAll('.sv-opt').forEach((el, idx) => el.classList.toggle('selected', idx === i));
+  const btn = document.getElementById('svNextBtn');
+  if (btn) btn.disabled = false;
+}
+
+function svPickNps(n) {
+  svAnswers[surveyQuestions[svStep].id] = n;
+  document.querySelectorAll('.sv-nps-btn').forEach((el, idx) => el.classList.toggle('selected', idx + 1 === n));
+  const btn = document.getElementById('svNextBtn');
+  if (btn) btn.disabled = false;
+}
+
+function svNext() {
+  svStep++;
+  if (svStep < surveyQuestions.length) {
+    renderSvStep();
+  } else {
+    document.getElementById('svProgressFill').style.width = '100%';
+    document.getElementById('svStepCounter').textContent = isUrdu ? 'مکمل!' : 'Complete!';
+    document.getElementById('svBody').style.display = 'none';
+    document.getElementById('sv-thanks-title').textContent = isUrdu ? 'آپ کی رائے کا شکریہ!' : 'Thank you for your feedback!';
+    document.getElementById('sv-thanks-sub').textContent   = isUrdu
+      ? 'آپ کے جوابات لاہور میں زونگ کی نیٹ ورک کوالٹی اور سروسز کو بہتر بنانے میں مدد کریں گے۔'
+      : 'Your responses help the Zong team improve network quality and services for Lahore customers.';
+    document.getElementById('sv-thanks-chip').textContent  = isUrdu ? '✓ جواب جمع ہو گیا' : '✓ Response submitted';
+    document.getElementById('svThanks').style.display = 'block';
+    document.getElementById('svThanks').style.animation = 'pop-in .4s cubic-bezier(.34,1.56,.64,1)';
+  }
+}
+
+function applySvHeaderTranslation() {
+  document.getElementById('sv-eyebrow').textContent = isUrdu ? 'صارف کی رائے' : 'Customer Feedback';
+  document.getElementById('sv-title').textContent   = isUrdu ? 'زونگ کے ساتھ اپنا تجربہ بتائیں' : 'Tell us about your Zong experience';
+  document.getElementById('sv-sub').textContent     = isUrdu
+    ? 'آپ کے جوابات لاہور میں کوریج اور سروس بہتر بنانے میں مدد کرتے ہیں۔'
+    : 'Your answers help us improve coverage & service in Lahore.';
+}
+
+document.getElementById('openSurveyBtn').addEventListener('click', () => {
+  svStep = 0;
+  svAnswers = {};
+  document.getElementById('svBody').style.display = '';
+  document.getElementById('svThanks').style.display = 'none';
+  applySvHeaderTranslation();
+  renderSvStep();
+  openModal('surveyModal');
 });
 </script>
 
+<!-- SURVEY MODAL -->
+<div class="modal-overlay" id="surveyModal">
+  <div class="modal" style="max-width:480px;padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:88vh;">
+    <div class="sv-header" style="padding:1.75rem 2rem 1.5rem;background:linear-gradient(135deg,#1A1A2E 0%,#2D1B4E 100%);position:relative;overflow:hidden;flex-shrink:0;">
+      <div style="position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(125,199,42,.2) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.75rem;">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(125,199,42,.15);border:1px solid rgba(125,199,42,.3);color:var(--lime);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:9999px;margin-bottom:.5rem;" id="sv-eyebrow">Customer Feedback</div>
+          <div style="font-weight:800;font-size:1.2rem;color:#fff;letter-spacing:-.02em;margin-bottom:.2rem;" id="sv-title">Tell us about your Zong experience</div>
+          <div style="color:rgba(255,255,255,.6);font-size:.8rem;" id="sv-sub">Your answers help us improve coverage & service in Lahore.</div>
+        </div>
+        <button onclick="closeModal('surveyModal')" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);width:30px;height:30px;border-radius:50%;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-family:inherit;flex-shrink:0;margin-top:2px;">✕</button>
+      </div>
+      <div>
+        <div style="height:4px;background:rgba(255,255,255,.15);border-radius:9999px;overflow:hidden;">
+          <div id="svProgressFill" style="height:100%;background:var(--lime);border-radius:9999px;transition:width .35s ease;width:0%"></div>
+        </div>
+        <div id="svStepCounter" style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.4rem;font-weight:600;">Question 1 of 6</div>
+      </div>
+    </div>
+    <div id="svBody" style="flex:1;overflow-y:auto;padding:1.75rem 2rem;"></div>
+    <div id="svThanks" style="display:none;text-align:center;padding:2.5rem 1.5rem;">
+      <div style="font-size:3rem;margin-bottom:.75rem;">🙏</div>
+      <div style="font-weight:800;font-size:1.3rem;color:var(--ink);margin-bottom:.4rem;" id="sv-thanks-title">Thank you for your feedback!</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.6;max-width:300px;margin:0 auto;" id="sv-thanks-sub">Your responses help the Zong team improve network quality and services for Lahore customers.</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--lime-bg);border:1px solid var(--lime-border);color:var(--lime);font-size:.75rem;font-weight:700;padding:.35rem .9rem;border-radius:9999px;margin-top:1.1rem;" id="sv-thanks-chip">✓ Response submitted</div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
