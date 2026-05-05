@@ -530,7 +530,7 @@ body.urdu-mode .sv-nps { flex-direction:row-reverse; }
     <div class="hero-stats">
       <div class="stat-pill">
         <div class="stat-num green">7</div>
-        <div class="stat-label" id="stat-plans">Top Plans</div>
+        <div class="stat-label" id="stat-plans">Top Bundles</div>
       </div>
       <div class="stat-pill">
         <div class="stat-num pink">Rs.140</div>
@@ -558,7 +558,7 @@ body.urdu-mode .sv-nps { flex-direction:row-reverse; }
     </svg>
     <div class="spin-banner-text">
       <h2 id="spin-banner-h2">🎁 Play & <span>Win Free Data!</span></h2>
-      <p id="spin-banner-p">First scan gets one FREE spin. Win up to 1GB bonus data, SMS packs & discounts.</p>
+      <p id="spin-banner-p">Play to win up to 500MB data</p>
     </div>
     <button class="spin-cta-btn" id="spin-banner-btn">Win Now →</button>
   </a>
@@ -654,11 +654,11 @@ body.urdu-mode .sv-nps { flex-direction:row-reverse; }
 <script>
 // ── Bundle Data ──────────────────────────────────────
 const bundles = [
-  { name:'Haftawar Voice Offer',  price:140,  dataEn:'1GB + WhatsApp 20GB',       dataUr:'1GB + واٹس ایپ 20GB',       voiceEn:'تمام نیٹ ورک 1,000',             voiceUr:'تمام نیٹ ورک 1,000',             sms:'1,000',  validity:'7 days',  validityUr:'7 دن',   code:'*4466#', period:'weekly',  stripe:'#7DC72A', cta:'cta-green' },
+  { name:'Haftawar Voice Offer',  price:140,  dataEn:'1GB + WhatsApp 20GB',       dataUr:'1GB + واٹس ایپ 20GB',       voiceEn:'All-net 1,000',             voiceUr:'تمام نیٹ ورک 1,000',             sms:'1,000',  validity:'7 days',  validityUr:'7 دن',   code:'*4466#', period:'weekly',  stripe:'#7DC72A', cta:'cta-green' },
   { name:'Area Play Ultra',       price:400,  dataEn:'35GB',                        dataUr:'35GB',                        voiceEn:'On-net 5,000 · Off-net 200',      voiceUr:'زونگ 5,000 · دیگر 200',           sms:'5,000',  validity:'7 days',  validityUr:'7 دن',   code:'*4466#', period:'weekly',  stripe:'#E0147A', cta:'cta-pink',  popular:true },
   { name:'Weekly Premium',        price:500,  dataEn:'30GB',                        dataUr:'30GB',                        voiceEn:'On-net 5,000 · Off-net 180',      voiceUr:'زونگ 5,000 · دیگر 180',           sms:'5,000',  validity:'7 days',  validityUr:'7 دن',   code:'*2250#', period:'weekly',  stripe:'#6B3FA0', cta:'cta-green' },
   { name:'Weekly Digital Max',    price:600,  dataEn:'100GB',                       dataUr:'100GB',                       voiceEn:'On-net 10,000 · Off-net 1,000',   voiceUr:'زونگ 10,000 · دیگر 1,000',        sms:'10,000', validity:'7 days',  validityUr:'7 دن',   code:'*1601#', period:'weekly',  stripe:'#D48C0A', cta:'cta-pink'  },
-  { name:'Maheena Bhar Offer',    price:580,  dataEn:'10GB + WhatsApp 20GB',       dataUr:'10GB + واٹس ایپ 20GB',       voiceEn:'تمام نیٹ ورک 2,000',             voiceUr:'تمام نیٹ ورک 2,000',             sms:'2,000',  validity:'30 days', validityUr:'30 دن',  code:'*4466#', period:'monthly', stripe:'#7DC72A', cta:'cta-green' },
+  { name:'Maheena Bhar Offer',    price:580,  dataEn:'10GB + WhatsApp 20GB',       dataUr:'10GB + واٹس ایپ 20GB',       voiceEn:'All-net 2,000',             voiceUr:'تمام نیٹ ورک 2,000',             sms:'2,000',  validity:'30 days', validityUr:'30 دن',  code:'*4466#', period:'monthly', stripe:'#7DC72A', cta:'cta-green' },
   { name:'Monthly Pro Max Basic', price:2100, dataEn:'200GB',                       dataUr:'200GB',                       voiceEn:'On-net 20,000 · Off-net 2,000',   voiceUr:'زونگ 20,000 · دیگر 2,000',        sms:'20,000', validity:'30 days', validityUr:'30 دن',  code:'*7340#', period:'monthly', stripe:'#E0147A', cta:'cta-pink'  },
   { name:'MY5',                   price:5300, dataEn:'200GB',                       dataUr:'200GB',                       voiceEn:'On-net 20,000 · Off-net 2,000',   voiceUr:'زونگ 20,000 · دیگر 2,000',        sms:'20,000', validity:'30 days', validityUr:'30 دن',  code:'*7334#', period:'monthly', stripe:'#6B3FA0', cta:'cta-green', sub:'Share with up to 4 numbers via MyZong App' },
 ];
